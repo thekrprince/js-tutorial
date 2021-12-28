@@ -62,4 +62,7 @@ btnScrollTo.addEventListener('click', function (e) {
   //   top: s1coords.top + window.pageYOffset,
   //   behavior: 'smooth',
   // });
+
+  // Modern way approach and will work with newer versions of browser only
+  section1.scrollIntoView({ behavior: 'smooth' });
 });
