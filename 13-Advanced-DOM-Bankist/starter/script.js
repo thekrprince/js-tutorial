@@ -6,8 +6,14 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
-///////////////////////////////////////
-// Modal window
+// Tab
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+// nav
+const nav = document.querySelector('nav');
+
+/****** Modal window ******/
 
 const openModal = function (e) {
   e.preventDefault();
@@ -31,8 +37,7 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-//////////////////////////////////
-// Smooth Scrolling
+/****** Smooth Scrolling ******/
 
 btnScrollTo.addEventListener('click', function (e) {
   const s1coords = section1.getBoundingClientRect();
@@ -48,7 +53,7 @@ btnScrollTo.addEventListener('click', function (e) {
     document.documentElement.clientWidth
   );
 
-  // Scrolling
+  /****** Scrolling ******/
 
   // Below 2 methods are old way approach and compatible with older version of browsers
   // window.scrollTo(
@@ -66,8 +71,7 @@ btnScrollTo.addEventListener('click', function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-//////////////////////////////
-// Page Navigation
+/****** Page Navigation ******/
 // document.querySelectorAll('.nav__link').forEach(el => {
 //   el.addEventListener('click', function (e) {
 //     e.preventDefault();
@@ -91,10 +95,7 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   }
 });
 
-// Tabbed component
-const tabs = document.querySelectorAll('.operations__tab');
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabsContent = document.querySelectorAll('.operations__content');
+/****** Tabbed component ******/
 
 tabsContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab');
@@ -117,8 +118,52 @@ tabsContainer.addEventListener('click', function (e) {
     .classList.add('operations__content--active');
 });
 
-//////////////////////////////
-// Event Handling in two ways
+/********* Menu fade animation *********/
+// Method 1
+// const handleHover = function (e, opacityVal) {
+//   if (e.target.classList.contains('nav__link')) {
+//     const link = e.target;
+//     const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+//     console.log(siblings);
+//     const logo = link.closest('.nav').querySelector('img');
+//     console.log(logo);
+
+//     siblings.forEach(el => {
+//       if (el !== link) el.style.opacity = opacityVal;
+//     });
+//     logo.style.opacity = opacityVal;
+//   }
+// };
+
+// nav.addEventListener('mouseover', function (e) {
+//   handleHover(e, 0.5);
+// });
+
+// nav.addEventListener('mouseout', function (e) {
+//   handleHover(e, 1);
+// });
+
+// Method 2 - Using bind method
+const handleHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    console.log(siblings);
+    const logo = link.closest('.nav').querySelector('img');
+    console.log(logo);
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+
+nav.addEventListener('mouseout', handleHover.bind(1));
+
+/****** Event Handling in two ways ******/
 const h1 = document.querySelector('h1');
 
 const alertH1 = () => {
@@ -141,21 +186,21 @@ const head1 = document.querySelector('h1');
 console.log(head1.querySelectorAll('.highlight'));
 console.log(head1.childNodes);
 console.log(head1.children);
-head1.firstElementChild.style.color = 'white';
-head1.lastElementChild.style.color = 'orangered';
+// head1.firstElementChild.style.color = 'white';
+// head1.lastElementChild.style.color = 'orangered';
 
 // Going upwards: child
 console.log(head1.parentNode);
 console.log(head1.parentElement);
 
-h1.closest('.header').style.background = 'var(--gradient-secondary)';
-h1.closest('h1').style.background = 'var(--gradient-primary)';
+// h1.closest('.header').style.background = 'var(--gradient-secondary)';
+// h1.closest('h1').style.background = 'var(--gradient-primary)';
 
 // Going sideways: siblings
 console.log(head1.previousElementSibling);
 console.log(head1.nextElementSibling);
 
 console.log(head1.parentElement.children);
-[...head1.parentElement.children].forEach(function (el) {
-  if (el !== h1) el.style.transform = 'scale(0.5)';
-});
+// [...head1.parentElement.children].forEach(function (el) {
+//   if (el !== h1) el.style.transform = 'scale(0.5)';
+// });
