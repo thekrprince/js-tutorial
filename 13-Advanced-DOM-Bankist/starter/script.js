@@ -204,6 +204,18 @@ const headerObserver = new IntersectionObserver(stickyNav, {
   rootMargin: `-${navHeight}px`,
 });
 
+/*************** Reveal Sections *************/
+const allSections = document.querySelectorAll('.section');
+
+const revealSection = function (entries, observer) {};
+
+const sectionObserver = new IntersectionObserver(revealSection, {});
+
+allSections.forEach(function (section) {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
+
 /*************** Event Handling in two ways *************/
 const h1 = document.querySelector('h1');
 
